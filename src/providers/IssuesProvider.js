@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import uuid4 from 'uuid4';
+import { v4 as uuid4 } from 'uuid';
 
 export const IssuesContext = createContext();
 
