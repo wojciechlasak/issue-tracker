@@ -1,10 +1,11 @@
 import React, { createContext, useState } from 'react';
 import { v4 as uuid4 } from 'uuid';
+import { ISSUES } from '../constants/data';
 
 export const IssuesContext = createContext();
 
 const IssuesProvider = ({ children }) => {
-  const [issues, setIssues] = useState([]);
+  const [issues, setIssues] = useState(ISSUES);
 
   return (
     <IssuesContext.Provider

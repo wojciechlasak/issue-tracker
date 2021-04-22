@@ -1,13 +1,23 @@
 import React from 'react';
 import IssuesProvider from './providers/IssuesProvider';
+import Theme from './providers/Theme';
 import styled from 'styled-components';
+import IssuesList from './components/issuesList/IssuesList';
 
-const Container = styled.div``;
+const Container = styled.div`
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 0 ${props => props.theme.spacing.column};
+`;
 
 const App = () => {
   return (
     <IssuesProvider>
-      <Container>Hello</Container>
+      <Theme>
+        <Container>
+          <IssuesList />
+        </Container>
+      </Theme>
     </IssuesProvider>
   );
 };

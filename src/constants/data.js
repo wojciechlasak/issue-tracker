@@ -1,7 +1,7 @@
 import { v4 as uuid4 } from 'uuid';
 import { STATUS } from './status';
 
-export const issues = [
+export const ISSUES = [
   {
     id: uuid4(),
     title: 'Lorem ipsum',
