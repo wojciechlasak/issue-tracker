@@ -39,11 +39,22 @@ export const TextContainer = styled.div`
 `;
 
 export const StatusContainer = styled.div`
-  display: flex;
-  align-items: center;
   padding: 1.5em 0;
   border-top: 1px solid ${props => props.theme.colors.grayLight};
   border-bottom: 1px solid ${props => props.theme.colors.grayLight};
+`;
+
+export const StatusContainerIn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &:nth-child(2) {
+    margin-top: 2em;
+    justify-content: flex-end;
+    position: relative;
+  }
 `;
 
 export const Cell = styled.div`
@@ -52,17 +63,62 @@ export const Cell = styled.div`
   padding: 0 0.5em;
   text-align: center;
 `;
+
+export const StatusCell = styled(Cell)`
+  text-transform: uppercase;
+  font-weight: 700;
+`;
+
 export const Button = styled.button`
   color: #fff;
   font-family: inherit;
   border-radius: ${props => props.theme.details.borderRadius};
-  background-color: ${props => props.theme.colors.blue};
+  background-color: ${props => props.color || props.theme.colors.blue};
   border: none;
   padding: 0.75em 1em;
   cursor: pointer;
-  transition: background-color 0.3s;
+  min-width: 8em;
+  transition: opacity 0.3s;
 
   &:hover {
-    background-color: ${props => props.theme.colors.blueDimmed};
+    opacity: 0.6;
   }
+`;
+
+export const StatusButton = styled(Button)`
+  text-transform: uppercase;
+  width: 20%;
+  opacity: ${({ active }) => (active ? '1' : '0.6')};
+
+  &:hover {
+    opacity: ${({ active }) => (active ? '0.6' : '1')};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${props => props.theme.colors.gray};
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+`;
+
+export const CancelButton = styled(Button)`
+  background-color: #fff;
+  border: 1px solid ${props => props.theme.colors.blue};
+  color: ${props => props.theme.colors.blue};
+  margin-right: 0.5em;
+`;
+
+export const Tooltip = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: -4em;
+  width: 9em;
+  border-radius: ${props => props.theme.details.borderRadius};
+  background-color: #fff;
+  padding: 0.5em;
+  border: 1px solid ${props => props.theme.colors.pink};
 `;

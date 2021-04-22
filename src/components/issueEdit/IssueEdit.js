@@ -9,17 +9,24 @@ import {
   TextContainer,
   Title,
   StatusContainer,
+  StatusContainerIn,
   Cell,
+  StatusCell,
+  StatusButton,
   Button,
+  CancelButton,
+  Tooltip,
 } from './StyledIssueEdit';
 import Cross from '../../images/x.png';
 
 const Issue = ({ issue, onExit }) => {
   const issuesContext = useContext(IssuesContext);
   const [isChangeStatus, setIsChangeStatus] = useState(false);
+  const [chosenStatus, setChosenStatus] = useState(issue.status);
+  const [shouldShowTooltip, setShouldShowTooltip] = useState(false);
 
   const handleChangeStatus = () => {
-    issuesContext.updateIsssueStatus(issue.id, STATUS.CLOSED);
+    issuesContext.updateIsssueStatus(issue.id, chosenStatus);
     setIsChangeStatus(false);
   };
 
@@ -35,13 +42,72 @@ const Issue = ({ issue, onExit }) => {
       </TextContainer>
       <TextContainer border={true}>{issue.description}</TextContainer>
       <StatusContainer>
-        <Cell>Status:</Cell>
-        <Cell color={getStatusColor(issue.status)}>{issue.status}</Cell>
-        <Cell>
-          <Button onClick={() => setIsChangeStatus(true)}>Zmień status</Button>
-        </Cell>
+        <StatusContainerIn>
+          <Cell>Status:</Cell>
+          {isChangeStatus ? (
+            <>
+              <StatusButton
+                color={getStatusColor('open')}
+                active={'open' === chosenStatus}
+                disabled={issue.status !== 'open'}
+                onClick={() => setChosenStatus('open')}
+              >
+                open
+              </StatusButton>
+              <StatusButton
+                color={getStatusColor('pending')}
+                active={'pending' === chosenStatus}
+                disabled={issue.status === 'closed'}
+                onClick={() => setChosenStatus('pending')}
+              >
+                pending
+              </StatusButton>
+              <StatusButton
+                color={getStatusColor('closed')}
+                active={'closed' === chosenStatus}
+                onClick={() => setChosenStatus('closed')}
+              >
+                closed
+              </StatusButton>
+            </>
+          ) : (
+            <>
+              <StatusCell color={getStatusColor(issue.status)}>
+                {issue.status}
+              </StatusCell>
+              <Cell>
+                {issue.status !== 'closed' && (
+                  <Button onClick={() => setIsChangeStatus(true)}>
+                    Change Status
+                  </Button>
+                )}
+              </Cell>
+            </>
+          )}
+        </StatusContainerIn>
+        {isChangeStatus && (
+          <StatusContainerIn>
+            <CancelButton
+              onClick={() => {
+                setIsChangeStatus(false);
+                setChosenStatus(issue.status);
+              }}
+            >
+              Cancel
+            </CancelButton>
+            <Button
+              onClick={handleChangeStatus}
+              onMouseLeave={() => setShouldShowTooltip(false)}
+              onMouseEnter={() => setShouldShowTooltip(true)}
+            >
+              Save
+            </Button>
+            {shouldShowTooltip && (
+              <Tooltip>This operation can not be undo.</Tooltip>
+            )}
+          </StatusContainerIn>
+        )}
       </StatusContainer>
-      {isChangeStatus && <Button onClick={handleChangeStatus}>Zapis</Button>}
     </>
   );
 };
