@@ -6,16 +6,14 @@ import { Container, TextCell, EditCell, StatusCell } from './StyledIssue';
 
 const Issue = ({ issue, onClickIssue }) => {
   return (
-    <Container>
+    <Container onClick={() => onClickIssue(issue)}>
       <TextCell>{issue.title}</TextCell>
       <TextCell>{getDate(issue.created_date)}</TextCell>
       <TextCell width="36%">{issue.description}</TextCell>
       <StatusCell color={getStatusColor(issue.status)}>
         {issue.status}
       </StatusCell>
-      <EditCell width="10%" onClick={() => onClickIssue(issue)}>
-        ...
-      </EditCell>
+      <EditCell width="10%">...</EditCell>
     </Container>
   );
 };

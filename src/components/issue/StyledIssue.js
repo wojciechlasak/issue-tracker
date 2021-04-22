@@ -2,9 +2,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  align-items: center;
   padding: 2em 0;
   border-bottom: 1px solid ${props => props.theme.colors.grayLight};
   transition: box-shadow 1s;
+  cursor: pointer;
 
   &:hover {
     box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.17);
@@ -32,6 +34,5 @@ export const StatusCell = styled(Cell)`
 `;
 
 export const EditCell = styled(Cell)`
-  cursor: pointer;
   font-size: ${props => props.theme.fontSizes.medium};
 `;
