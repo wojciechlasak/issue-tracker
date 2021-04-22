@@ -78,6 +78,11 @@ export const Button = styled.button`
   padding: 0.75em 1em;
   cursor: pointer;
   min-width: 8em;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
 export const HoverableButton = styled(Button)`
