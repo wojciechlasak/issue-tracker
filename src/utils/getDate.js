@@ -13,31 +13,19 @@ const monthNames = [
   'December',
 ];
 
-function sameDay(d1, d2) {
-  return (
-    d1.getFullYear() === d2.getFullYear() &&
-    d1.getMonth() === d2.getMonth() &&
-    d1.getDate() === d2.getDate()
-  );
+function diffMinutes(d2, d1) {
+  var diff = (d2.getTime() - d1.getTime()) / 1000;
+  diff /= 60;
+  return Math.abs(Math.round(diff));
 }
 
-function correctTime(d, eventTimezoneOffset) {
-  let timeCorrection = d.getTimezoneOffset() - eventTimezoneOffset;
-  d.setMinutes(d.getMinutes() + timeCorrection);
-}
-
-export function getDate(eventDate, eventTimezoneOffset = 2) {
+export function getDate(eventDate) {
   let d = new Date(eventDate);
   let now = new Date();
-  correctTime(d, eventTimezoneOffset);
-  correctTime(now, eventTimezoneOffset);
+  let diff = diffMinutes(d, now);
 
-  if (sameDay(d, now)) {
-    let offsetDate = new Date(now - d);
-    let hours = offsetDate.getHours();
-    let minutes = offsetDate.getMinutes();
-    return hours === 0 ? `${hours} h ago` : `${minutes} min ago`;
-  }
+  if (diff < 1440)
+    return diff > 60 ? `${Math.round(diff / 60)} h ago` : `${diff} min ago`;
 
   return `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
