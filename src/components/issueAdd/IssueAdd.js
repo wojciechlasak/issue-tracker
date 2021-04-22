@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
+import { STATUS } from '../../constants/status';
 import { IssuesContext } from '../../providers/IssuesProvider';
 import { AddButton, InputText, InputTextArea, Label } from './StyledIssueAdd';
 import Popup from '../popup/Popup';
@@ -99,23 +100,23 @@ const IssueAdd = () => {
               <StatusContainerIn>
                 <Cell>Choose Status:</Cell>
                 <StatusButton
-                  color={getStatusColor('open')}
-                  active={'open' === chosenStatus}
-                  onClick={() => setChosenStatus('open')}
+                  color={getStatusColor(STATUS.OPEN)}
+                  active={STATUS.OPEN === chosenStatus}
+                  onClick={() => setChosenStatus(STATUS.OPEN)}
                 >
                   open
                 </StatusButton>
                 <StatusButton
-                  color={getStatusColor('pending')}
-                  active={'pending' === chosenStatus}
-                  onClick={() => setChosenStatus('pending')}
+                  color={getStatusColor(STATUS.PENDING)}
+                  active={STATUS.PENDING === chosenStatus}
+                  onClick={() => setChosenStatus(STATUS.PENDING)}
                 >
                   pending
                 </StatusButton>
                 <StatusButton
-                  color={getStatusColor('closed')}
-                  active={'closed' === chosenStatus}
-                  onClick={() => setChosenStatus('closed')}
+                  color={getStatusColor(STATUS.CLOSED)}
+                  active={STATUS.CLOSED === chosenStatus}
+                  onClick={() => setChosenStatus(STATUS.CLOSED)}
                 >
                   closed
                 </StatusButton>

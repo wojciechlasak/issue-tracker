@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
+import { STATUS } from '../../constants/status';
 import FilterBox from './FilterBox';
 import { IssuesContext } from '../../providers/IssuesProvider';
 import { getStatusColor } from '../../utils/getStatusColor';
@@ -25,19 +26,19 @@ const Header = () => {
         number: issuesContext.issues.length,
       },
       {
-        name: 'open',
-        bgColor: getStatusColor('open'),
-        number: getIssueNumber('open'),
+        name: STATUS.OPEN,
+        bgColor: getStatusColor(STATUS.OPEN),
+        number: getIssueNumber(STATUS.OPEN),
       },
       {
-        name: 'pending',
-        bgColor: getStatusColor('pending'),
-        number: getIssueNumber('pending'),
+        name: STATUS.PENDING,
+        bgColor: getStatusColor(STATUS.PENDING),
+        number: getIssueNumber(STATUS.PENDING),
       },
       {
-        name: 'closed',
-        bgColor: getStatusColor('closed'),
-        number: getIssueNumber('closed'),
+        name: STATUS.CLOSED,
+        bgColor: getStatusColor(STATUS.CLOSED),
+        number: getIssueNumber(STATUS.CLOSED),
       },
     ]);
   }, [issuesContext, getIssueNumber]);

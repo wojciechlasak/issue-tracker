@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
+import { STATUS } from '../../constants/status';
 import { getDate } from '../../utils/getDate';
 import { getStatusColor } from '../../utils/getStatusColor';
 import { IssuesContext } from '../../providers/IssuesProvider';
@@ -68,25 +69,25 @@ const IssueEdit = ({ issue, onExit }) => {
           {isChangeStatus ? (
             <>
               <StatusButton
-                color={getStatusColor('open')}
-                active={'open' === chosenStatus}
-                disabled={issue.status !== 'open'}
-                onClick={() => setChosenStatus('open')}
+                color={getStatusColor(STATUS.OPEN)}
+                active={STATUS.OPEN === chosenStatus}
+                disabled={issue.status !== STATUS.OPEN}
+                onClick={() => setChosenStatus(STATUS.OPEN)}
               >
                 open
               </StatusButton>
               <StatusButton
-                color={getStatusColor('pending')}
-                active={'pending' === chosenStatus}
-                disabled={issue.status === 'closed'}
-                onClick={() => setChosenStatus('pending')}
+                color={getStatusColor(STATUS.PENDING)}
+                active={STATUS.PENDING === chosenStatus}
+                disabled={issue.status === STATUS.CLOSED}
+                onClick={() => setChosenStatus(STATUS.PENDING)}
               >
                 pending
               </StatusButton>
               <StatusButton
-                color={getStatusColor('closed')}
-                active={'closed' === chosenStatus}
-                onClick={() => setChosenStatus('closed')}
+                color={getStatusColor(STATUS.CLOSED)}
+                active={STATUS.CLOSED === chosenStatus}
+                onClick={() => setChosenStatus(STATUS.CLOSED)}
               >
                 closed
               </StatusButton>
@@ -97,7 +98,7 @@ const IssueEdit = ({ issue, onExit }) => {
                 {issue.status}
               </StatusCell>
               <Cell>
-                {issue.status !== 'closed' && (
+                {issue.status !== STATUS.CLOSED && (
                   <HoverableButton onClick={() => setIsChangeStatus(true)}>
                     Change Status
                   </HoverableButton>

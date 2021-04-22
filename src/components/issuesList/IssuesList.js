@@ -16,9 +16,7 @@ const IssuesList = () => {
   );
 
   const getClassNamesFor = name => {
-    if (!sortConfig) {
-      return;
-    }
+    if (!sortConfig) return;
     return sortConfig.key === name ? sortConfig.direction : undefined;
   };
 
