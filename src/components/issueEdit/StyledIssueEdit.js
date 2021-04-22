@@ -78,6 +78,9 @@ export const Button = styled.button`
   padding: 0.75em 1em;
   cursor: pointer;
   min-width: 8em;
+`;
+
+export const HoverableButton = styled(Button)`
   transition: opacity 0.3s;
 
   &:hover:enabled {
@@ -88,32 +91,24 @@ export const Button = styled.button`
 export const StatusButton = styled(Button)`
   text-transform: uppercase;
   width: 20%;
-  opacity: ${({ active }) => (active ? '1' : '0.6')};
-
-  &:hover:enabled {
-    opacity: ${({ active }) => (active ? '0.6' : '1')};
-  }
+  opacity: ${({ active }) => (active ? '1' : '0.4')};
 
   &:disabled {
     cursor: not-allowed;
-    background-color: ${props => props.theme.colors.gray};
+    background-color: ${props => props.theme.colors.grayLight};
   }
 `;
 
-export const CancelButton = styled(Button)`
+export const CancelButton = styled(HoverableButton)`
   background-color: #fff;
   border: 1px solid ${props => props.theme.colors.blue};
   color: ${props => props.theme.colors.blue};
   margin-right: 0.5em;
 `;
 
-export const Tooltip = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: -4em;
-  width: 9em;
-  border-radius: ${props => props.theme.details.borderRadius};
-  background-color: #fff;
-  padding: 0.5em;
-  border: 1px solid ${props => props.theme.colors.pink};
+export const Information = styled.div`
+  margin-top: 0.5em;
+  width: 100%;
+  text-align: right;
+  color: ${props => props.theme.colors.blue};
 `;

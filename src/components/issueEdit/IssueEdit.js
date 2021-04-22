@@ -1,5 +1,10 @@
-import React, { useState, useContext } from 'react';
-import { STATUS } from '../../constants/status';
+import React, {
+  useState,
+  useContext,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 import { getDate } from '../../utils/getDate';
 import { getStatusColor } from '../../utils/getStatusColor';
 import { IssuesContext } from '../../providers/IssuesProvider';
@@ -13,26 +18,41 @@ import {
   Cell,
   StatusCell,
   StatusButton,
-  Button,
+  HoverableButton,
   CancelButton,
-  Tooltip,
+  Information,
 } from './StyledIssueEdit';
 import Cross from '../../images/x.png';
 
-const Issue = ({ issue, onExit }) => {
+const IssueEdit = ({ issue, onExit }) => {
   const issuesContext = useContext(IssuesContext);
   const [isChangeStatus, setIsChangeStatus] = useState(false);
   const [chosenStatus, setChosenStatus] = useState(issue.status);
-  const [shouldShowTooltip, setShouldShowTooltip] = useState(false);
+  const node = useRef();
 
   const handleChangeStatus = () => {
     issuesContext.updateIsssueStatus(issue.id, chosenStatus);
     setIsChangeStatus(false);
-    setShouldShowTooltip(false);
   };
 
+  const handleClickOutside = useCallback(
+    e => {
+      if (node.current.contains(e.target)) return;
+      onExit();
+    },
+    [onExit]
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleClickOutside]);
+
   return (
-    <>
+    <div ref={node}>
       <Exit onClick={onExit}>
         <img src={Cross} alt="" />
       </Exit>
@@ -44,7 +64,7 @@ const Issue = ({ issue, onExit }) => {
       <TextContainer border={true}>{issue.description}</TextContainer>
       <StatusContainer>
         <StatusContainerIn>
-          <Cell>Status:</Cell>
+          <Cell>{isChangeStatus ? 'Update Status:' : 'Status:'}</Cell>
           {isChangeStatus ? (
             <>
               <StatusButton
@@ -78,9 +98,9 @@ const Issue = ({ issue, onExit }) => {
               </StatusCell>
               <Cell>
                 {issue.status !== 'closed' && (
-                  <Button onClick={() => setIsChangeStatus(true)}>
+                  <HoverableButton onClick={() => setIsChangeStatus(true)}>
                     Change Status
-                  </Button>
+                  </HoverableButton>
                 )}
               </Cell>
             </>
@@ -92,26 +112,17 @@ const Issue = ({ issue, onExit }) => {
               onClick={() => {
                 setIsChangeStatus(false);
                 setChosenStatus(issue.status);
-                setShouldShowTooltip(false);
               }}
             >
               Cancel
             </CancelButton>
-            <Button
-              onClick={handleChangeStatus}
-              onMouseLeave={() => setShouldShowTooltip(false)}
-              onMouseEnter={() => setShouldShowTooltip(true)}
-            >
-              Save
-            </Button>
-            {shouldShowTooltip && (
-              <Tooltip>This operation can not be undo.</Tooltip>
-            )}
+            <HoverableButton onClick={handleChangeStatus}>Save</HoverableButton>
+            <Information>Be careful, save cannot be undone</Information>
           </StatusContainerIn>
         )}
       </StatusContainer>
-    </>
+    </div>
   );
 };
 
-export default Issue;
+export default IssueEdit;
