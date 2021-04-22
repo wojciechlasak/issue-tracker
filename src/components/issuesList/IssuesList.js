@@ -3,14 +3,9 @@ import { IssuesContext } from '../../providers/IssuesProvider';
 import { useSortableData } from '../../utils/useSortableData';
 import Issue from '../issue/Issue';
 import IssueEdit from '../issueEdit/IssueEdit';
+import Popup from '../popup/Popup';
 import Arrow from '../../images/arrow.png';
-import {
-  ListHeader,
-  Cell,
-  SortCell,
-  PopupContainer,
-  Popup,
-} from './StyledIssuesList';
+import { ListHeader, Cell, SortCell } from './StyledIssuesList';
 
 const IssuesList = () => {
   const issuesContext = useContext(IssuesContext);
@@ -64,11 +59,9 @@ const IssuesList = () => {
         <Issue key={issue.id} issue={issue} onClickIssue={handleClickIssue} />
       ))}
       {isShowPopup && (
-        <PopupContainer>
-          <Popup>
-            <IssueEdit issue={activeIssue} onExit={handleExitIssueEdit} />
-          </Popup>
-        </PopupContainer>
+        <Popup>
+          <IssueEdit issue={activeIssue} onExit={handleExitIssueEdit} />
+        </Popup>
       )}
     </section>
   );

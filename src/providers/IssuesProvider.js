@@ -16,10 +16,10 @@ const IssuesProvider = ({ children }) => {
           setIssues(oldIssues => [...oldIssues, newIssue]);
         },
         updateIsssueStatus: (issueId, newStatus) => {
-          const updateIndex = issues.findIndex(issueId);
-          setIssues(issues => {
-            issues[updateIndex].status = newStatus;
-            return issues;
+          const updateIndex = issues.findIndex(issue => issue.id === issueId);
+          setIssues(prevIssues => {
+            prevIssues[updateIndex].status = newStatus;
+            return prevIssues;
           });
         },
       }}

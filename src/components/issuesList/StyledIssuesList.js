@@ -1,28 +1,8 @@
 import styled from 'styled-components';
 
-export const PopupContainer = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(40, 61, 123, 0.5);
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Popup = styled.div`
-  position: fixed;
-  max-width: 50em;
-  background-color: #fff;
-  padding: 1.5em;
-  margin: ${props => props.theme.spacing.column};
-`;
-
 export const Cell = styled.div`
   width: ${props => props.width || '18%'};
-  color: ${props => props.color || props.theme.colors.gray};
+  color: ${props => props.color || props.theme.colors.blue};
   text-align: center;
   font-weight: 700;
 `;
@@ -38,8 +18,7 @@ export const SortCell = styled(Cell)`
     ${({ sorted }) =>
       sorted === 'ascending' &&
       `
-    transform: rotate(180deg);
-  `}
+    transform: rotate(180deg);`}
   }
 `;
 
