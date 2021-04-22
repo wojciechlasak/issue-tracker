@@ -19,10 +19,9 @@ const IssuesProvider = ({ children }) => {
         },
         updateIsssueStatus: (issueId, newStatus) => {
           const updateIndex = issues.findIndex(issue => issue.id === issueId);
-          setIssues(prevIssues => {
-            prevIssues[updateIndex].status = newStatus;
-            return prevIssues;
-          });
+          const newIssues = [...issues];
+          newIssues[updateIndex].status = newStatus;
+          setIssues([...newIssues]);
         },
         filterIssuesByStatus: status => {
           if (status === 'all') setFilteredIssues(issues);
