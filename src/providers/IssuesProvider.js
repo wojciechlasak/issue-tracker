@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { v4 as uuid4 } from 'uuid';
 import { ISSUES } from '../constants/data';
 
@@ -8,6 +8,10 @@ const IssuesProvider = ({ children }) => {
   const [issues, setIssues] = useState(ISSUES);
   const [filteredIssues, setFilteredIssues] = useState(ISSUES);
 
+  useEffect(() => {
+    setFilteredIssues(issues);
+  }, [issues]);
+
   return (
     <IssuesContext.Provider
       value={{
@@ -15,7 +19,7 @@ const IssuesProvider = ({ children }) => {
         filteredIssues: filteredIssues,
         addIssues: newIssue => {
           newIssue.id = uuid4();
-          setIssues(oldIssues => [...oldIssues, newIssue]);
+          setIssues([...issues, newIssue]);
         },
         updateIsssueStatus: (issueId, newStatus) => {
           const updateIndex = issues.findIndex(issue => issue.id === issueId);

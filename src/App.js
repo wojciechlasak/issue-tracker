@@ -4,6 +4,7 @@ import Theme from './providers/Theme';
 import styled from 'styled-components';
 import Header from './components/header/Header';
 import IssuesList from './components/issuesList/IssuesList';
+import IssueAdd from './components/issueAdd/IssueAdd';
 
 const Container = styled.div`
   max-width: 70rem;
@@ -19,6 +20,7 @@ const App = () => {
         <Container>
           <Header />
           <IssuesList />
+          <IssueAdd />
         </Container>
       </Theme>
     </IssuesProvider>
