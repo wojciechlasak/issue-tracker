@@ -10,9 +10,6 @@ const theme = {
     gray: '#454852',
     grayLight: '#D3D5DA',
     blueDimmed: 'rgba(40, 61, 123, 0.6)',
-    pinkDimmed: 'rgba(255, 74, 117, 0.6)',
-    yellowDimmed: 'rgba(224, 157, 0, 0.6)',
-    greenDimmed: 'rgba(73, 160, 120, 0.6)',
   },
   fontSizes: {
     small: '0.8em',
