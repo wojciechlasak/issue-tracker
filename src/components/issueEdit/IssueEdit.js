@@ -28,6 +28,7 @@ const Issue = ({ issue, onExit }) => {
   const handleChangeStatus = () => {
     issuesContext.updateIsssueStatus(issue.id, chosenStatus);
     setIsChangeStatus(false);
+    setShouldShowTooltip(false);
   };
 
   return (
@@ -91,6 +92,7 @@ const Issue = ({ issue, onExit }) => {
               onClick={() => {
                 setIsChangeStatus(false);
                 setChosenStatus(issue.status);
+                setShouldShowTooltip(false);
               }}
             >
               Cancel

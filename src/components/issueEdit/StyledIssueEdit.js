@@ -80,7 +80,7 @@ export const Button = styled.button`
   min-width: 8em;
   transition: opacity 0.3s;
 
-  &:hover {
+  &:hover:enabled {
     opacity: 0.6;
   }
 `;
@@ -90,18 +90,13 @@ export const StatusButton = styled(Button)`
   width: 20%;
   opacity: ${({ active }) => (active ? '1' : '0.6')};
 
-  &:hover {
+  &:hover:enabled {
     opacity: ${({ active }) => (active ? '0.6' : '1')};
   }
 
   &:disabled {
     cursor: not-allowed;
     background-color: ${props => props.theme.colors.gray};
-    opacity: 0.6;
-
-    &:hover {
-      opacity: 0.6;
-    }
   }
 `;
 
