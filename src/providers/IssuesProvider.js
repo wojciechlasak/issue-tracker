@@ -6,17 +6,25 @@ export const IssuesContext = createContext();
 
 const IssuesProvider = ({ children }) => {
   const [issues, setIssues] = useState(ISSUES);
+  const [filterByStatusName, setFilterByStatusName] = useState('all');
   const [filteredIssues, setFilteredIssues] = useState(ISSUES);
 
   useEffect(() => {
-    setFilteredIssues(issues);
-  }, [issues]);
+    if (filterByStatusName === 'all') setFilteredIssues(issues);
+    else
+      setFilteredIssues(
+        issues.filter(issue => issue.status === filterByStatusName)
+      );
+  }, [issues, filterByStatusName]);
 
   return (
     <IssuesContext.Provider
       value={{
         issues: issues,
         filteredIssues: filteredIssues,
+        setFilterByStatusName: title => {
+          setFilterByStatusName(title);
+        },
         addIssues: newIssue => {
           newIssue.id = uuid4();
           setIssues([...issues, newIssue]);
@@ -26,11 +34,6 @@ const IssuesProvider = ({ children }) => {
           const newIssues = [...issues];
           newIssues[updateIndex].status = newStatus;
           setIssues([...newIssues]);
-        },
-        filterIssuesByStatus: status => {
-          if (status === 'all') setFilteredIssues(issues);
-          else
-            setFilteredIssues(issues.filter(issue => issue.status === status));
         },
       }}
     >

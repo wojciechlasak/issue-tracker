@@ -44,7 +44,7 @@ const Header = () => {
 
   const handleChangeActive = title => {
     setActive(title);
-    issuesContext.filterIssuesByStatus(title);
+    issuesContext.setFilterByStatusName(title);
   };
 
   return (
