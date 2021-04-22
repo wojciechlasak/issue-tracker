@@ -24,6 +24,7 @@ export const Cell = styled.div`
   width: ${props => props.width || '18%'};
   color: ${props => props.color || props.theme.colors.gray};
   text-align: center;
+  font-weight: 700;
 `;
 
 export const SortCell = styled(Cell)`
