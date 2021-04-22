@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { IssuesContext } from '../../providers/IssuesProvider';
+import { useSortableData } from '../../utils/useSortableData';
 import Issue from '../issue/Issue';
 import IssueEdit from '../issueEdit/IssueEdit';
 import Arrow from '../../images/arrow.png';
@@ -15,7 +16,16 @@ const IssuesList = () => {
   const issuesContext = useContext(IssuesContext);
   const [isShowPopup, setIsShowPopup] = useState(false);
   const [activeIssue, setActiveIssue] = useState(null);
-  const [issues, setIssues] = useState(issuesContext.issues);
+  const { items, requestSort, sortConfig } = useSortableData(
+    issuesContext.issues
+  );
+
+  const getClassNamesFor = name => {
+    if (!sortConfig) {
+      return;
+    }
+    return sortConfig.key === name ? sortConfig.direction : undefined;
+  };
 
   const handleClickIssue = issue => {
     setIsShowPopup(true);
@@ -27,29 +37,30 @@ const IssuesList = () => {
     setActiveIssue(null);
   };
 
-  const handleSort = () => {
-    setIssues(prevIssues => [
-      ...prevIssues.sort((a, b) =>
-        a.title > b.title ? 1 : b.title > a.title ? -1 : 0
-      ),
-    ]);
-  };
-
   return (
     <section>
       <ListHeader>
-        <SortCell onClick={handleSort}>
+        <SortCell
+          onClick={() => requestSort('title')}
+          sorted={getClassNamesFor('title')}
+        >
           Title <img src={Arrow} alt="" />
         </SortCell>
-        <SortCell onClick={handleSort}>
+        <SortCell
+          onClick={() => requestSort('created_date')}
+          sorted={getClassNamesFor('created_date')}
+        >
           Date <img src={Arrow} alt="" />
         </SortCell>
         <Cell width="36%">Description</Cell>
-        <SortCell onClick={handleSort}>
+        <SortCell
+          onClick={() => requestSort('status')}
+          sorted={getClassNamesFor('status')}
+        >
           Status <img src={Arrow} alt="" />
         </SortCell>
       </ListHeader>
-      {issues.map(issue => (
+      {items.map(issue => (
         <Issue key={issue.id} issue={issue} onClickIssue={handleClickIssue} />
       ))}
       {isShowPopup && (

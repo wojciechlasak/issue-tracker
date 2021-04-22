@@ -28,11 +28,17 @@ export const Cell = styled.div`
 
 export const SortCell = styled(Cell)`
   cursor: pointer;
+  user-select: none;
 
   img {
     margin-left: 0.25em;
     height: 1em;
     vertical-align: middle;
+    ${({ sorted }) =>
+      sorted === 'ascending' &&
+      `
+    transform: rotate(180deg);
+  `}
   }
 `;
 
