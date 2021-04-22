@@ -15,6 +15,7 @@ export const PopupContainer = styled.div`
 export const StyledPopup = styled.div`
   position: fixed;
   max-width: 50em;
+  width: 90%;
   background-color: #fff;
   padding: 1.5em 2em;
   margin: ${props => props.theme.spacing.column};
