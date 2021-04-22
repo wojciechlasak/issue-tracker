@@ -1,33 +1,21 @@
 import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
 import { IssuesContext } from '../../providers/IssuesProvider';
 import Issue from '../issue/Issue';
 import IssueEdit from '../issueEdit/IssueEdit';
-
-const PopupContainer = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(40, 61, 123, 0.5);
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Popup = styled.div`
-  position: fixed;
-  max-width: 50em;
-  background-color: #fff;
-  padding: 1.5em;
-  margin: ${props => props.theme.spacing.column};
-`;
+import Arrow from '../../images/arrow.png';
+import {
+  ListHeader,
+  Cell,
+  SortCell,
+  PopupContainer,
+  Popup,
+} from './StyledIssuesList';
 
 const IssuesList = () => {
   const issuesContext = useContext(IssuesContext);
   const [isShowPopup, setIsShowPopup] = useState(false);
   const [activeIssue, setActiveIssue] = useState(null);
+  const [issues, setIssues] = useState(issuesContext.issues);
 
   const handleClickIssue = issue => {
     setIsShowPopup(true);
@@ -39,11 +27,30 @@ const IssuesList = () => {
     setActiveIssue(null);
   };
 
+  const handleSort = () => {
+    setIssues(prevIssues => [
+      ...prevIssues.sort((a, b) =>
+        a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+      ),
+    ]);
+  };
+
   return (
     <section>
-      <header></header>
-      {issuesContext.issues.map(issue => (
-        <Issue issue={issue} onClickIssue={handleClickIssue} />
+      <ListHeader>
+        <SortCell onClick={handleSort}>
+          Title <img src={Arrow} alt="" />
+        </SortCell>
+        <SortCell onClick={handleSort}>
+          Date <img src={Arrow} alt="" />
+        </SortCell>
+        <Cell width="36%">Description</Cell>
+        <SortCell onClick={handleSort}>
+          Status <img src={Arrow} alt="" />
+        </SortCell>
+      </ListHeader>
+      {issues.map(issue => (
+        <Issue key={issue.id} issue={issue} onClickIssue={handleClickIssue} />
       ))}
       {isShowPopup && (
         <PopupContainer>
