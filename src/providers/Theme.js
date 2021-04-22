@@ -17,7 +17,7 @@ const theme = {
   fontSizes: {
     small: '0.8em',
     medium: '1.2em',
-    large: '2em',
+    large: '1.5em',
   },
   spacing: {
     column: '3rem',

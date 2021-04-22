@@ -2,6 +2,7 @@ import React from 'react';
 import IssuesProvider from './providers/IssuesProvider';
 import Theme from './providers/Theme';
 import styled from 'styled-components';
+import Header from './components/header/Header';
 import IssuesList from './components/issuesList/IssuesList';
 
 const Container = styled.div`
@@ -16,6 +17,7 @@ const App = () => {
     <IssuesProvider>
       <Theme>
         <Container>
+          <Header />
           <IssuesList />
         </Container>
       </Theme>

@@ -6,11 +6,13 @@ export const IssuesContext = createContext();
 
 const IssuesProvider = ({ children }) => {
   const [issues, setIssues] = useState(ISSUES);
+  const [filteredIssues, setFilteredIssues] = useState(ISSUES);
 
   return (
     <IssuesContext.Provider
       value={{
         issues: issues,
+        filteredIssues: filteredIssues,
         addIssues: newIssue => {
           newIssue.id = uuid4();
           setIssues(oldIssues => [...oldIssues, newIssue]);
@@ -21,6 +23,11 @@ const IssuesProvider = ({ children }) => {
             prevIssues[updateIndex].status = newStatus;
             return prevIssues;
           });
+        },
+        filterIssuesByStatus: status => {
+          if (status === 'all') setFilteredIssues(issues);
+          else
+            setFilteredIssues(issues.filter(issue => issue.status === status));
         },
       }}
     >

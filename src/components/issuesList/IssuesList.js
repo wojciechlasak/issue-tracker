@@ -12,7 +12,7 @@ const IssuesList = () => {
   const [isShowPopup, setIsShowPopup] = useState(false);
   const [activeIssue, setActiveIssue] = useState(null);
   const { items, requestSort, sortConfig } = useSortableData(
-    issuesContext.issues
+    issuesContext.filteredIssues
   );
 
   const getClassNamesFor = name => {
@@ -48,12 +48,7 @@ const IssuesList = () => {
           Date <img src={Arrow} alt="" />
         </SortCell>
         <Cell width="36%">Description</Cell>
-        <SortCell
-          onClick={() => requestSort('status')}
-          sorted={getClassNamesFor('status')}
-        >
-          Status <img src={Arrow} alt="" />
-        </SortCell>
+        <Cell>Status</Cell>
       </ListHeader>
       {items.map(issue => (
         <Issue key={issue.id} issue={issue} onClickIssue={handleClickIssue} />
