@@ -77,7 +77,7 @@ const IssueAdd = () => {
             <Exit onClick={handleReset}>
               <img src={Cross} alt="" />
             </Exit>
-            <Heading>Add Details</Heading>
+            <Heading>Add issue</Heading>
             <Label>
               Title
               <InputText
@@ -98,7 +98,7 @@ const IssueAdd = () => {
             </Label>
             <StatusContainer>
               <StatusContainerIn>
-                <Cell>Choose Status:</Cell>
+                <Cell>Choose status:</Cell>
                 <StatusButton
                   color={getStatusColor(STATUS.OPEN)}
                   active={STATUS.OPEN === chosenStatus}
