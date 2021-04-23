@@ -21,6 +21,7 @@ import {
   CancelButton,
 } from '../issueEdit/StyledIssueEdit';
 import Cross from '../../images/x.png';
+import Plus from '../../images/plus.png';
 
 const IssueAdd = () => {
   const issuesContext = useContext(IssuesContext);
@@ -69,7 +70,7 @@ const IssueAdd = () => {
   return (
     <>
       <AddButton onClick={() => setIsShowPopup(true)}>
-        <span>+</span>
+        <img src={Plus} alt="" />
       </AddButton>
       {isShowPopup && (
         <Popup>

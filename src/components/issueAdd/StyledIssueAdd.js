@@ -12,13 +12,16 @@ export const AddButton = styled.button`
   color: #fff;
   cursor: pointer;
   transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     opacity: 0.8;
   }
 
-  span {
-    font-size: 4em;
+  img {
+    width: 2em;
   }
 `;
 
